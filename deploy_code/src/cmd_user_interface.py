@@ -63,7 +63,7 @@ class CmdUserInterface:
             top_30 = ItJobsWatchHomePageTop30(itjobswatch_home_page_url())
             Top30CSVGenerator().generate_top_30_csv(
                 top_30.get_top_30_table_elements_into_array(),
-                os.path.expanduser("~/Downloads/"),
+                os.path.expanduser('./csv_files/'),
                 "ItJobsWatchTop30.csv",
                 top_30.get_table_headers_array(),
             )
