@@ -10,33 +10,31 @@
     home_location: "/home/ubuntu"
 
   tasks:
-    - synchronize:
+    - name: Synchronizing Files
+      synchronize:
         src: "{{ home_location }}/{{ code_local }}/"
         dest: "{{ home_location }}/{{ code_dest }}/"
-    - name: Getting Public IP
-      command: "curl ifconfig.me"
-      register: host_ip
     - name: Running Updates & Upgrades
       apt:
         upgrade: "yes"
         update_cache: yes
         force_apt_get: yes
         cache_valid_time: 3600
-    - name: Install python3 and pip3
+    - name: Installing python3 and pip3
       apt:
         name:
           - python3
           - python3-pip
         state: present
-    - name: Build scrapper dependencies
+    - name: Building scrapper dependencies
       command:
         cmd: python3 setup.py build
         chdir: "{{ home_location }}/{{ code_dest }}/"
-    - name: Install scrapper dependencies
+    - name: Installing scrapper dependencies
       command:
         cmd: python3 setup.py install
         chdir: "{{ home_location }}/{{ code_dest }}/"
-    - name: Test scrapper working
+    - name: Testing scrapper working
       command:
         cmd: pytest
         chdir: "{{ home_location }}/{{ code_dest }}"
