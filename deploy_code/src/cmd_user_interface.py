@@ -57,16 +57,17 @@ class CmdUserInterface:
                     itjobswatch_home_page_url()
                 ).get_top_30_table_elements_into_array()
             )
-            print("Please check your downloads folder")
+            print("Please check your 'csv' folder")
             self.manage_get_ITJW_top_30_menu()
         elif int(option_selected) == 2:
             top_30 = ItJobsWatchHomePageTop30(itjobswatch_home_page_url())
             Top30CSVGenerator().generate_top_30_csv(
                 top_30.get_top_30_table_elements_into_array(),
-                os.path.expanduser('./csv_files/'),
+                os.path.expanduser(f'{os.path.abspath(os.getcwd())}/csv/'),
                 "ItJobsWatchTop30.csv",
                 top_30.get_table_headers_array(),
             )
+            self.manage_get_ITJW_top_30_menu()
         elif int(option_selected) == 3:
             self.menu_control()
         else:
