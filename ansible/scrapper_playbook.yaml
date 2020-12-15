@@ -1,0 +1,46 @@
+---
+- name: Running the Python Scrapper
+  hosts: scrapper
+  gather_facts: yes
+  become: true
+
+  vars:
+    code_local: "deploy_code"
+    code_dest: "Python_Scrapper"
+    home_location: "/home/ubuntu"
+
+  tasks:
+    - synchronize:
+        src: "{{ home_location }}/{{ code_local }}/"
+        dest: "{{ home_location }}/{{ code_dest }}/"
+    - name: Getting Public IP
+      command: "curl ifconfig.me"
+      register: host_ip
+    - name: Running Updates & Upgrades
+      apt:
+        upgrade: "yes"
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+    - name: Install python3 and pip3
+      apt:
+        name:
+          - python3
+          - python3-pip
+        state: present
+    - name: Build scrapper dependencies
+      command:
+        cmd: python3 setup.py build
+        chdir: "{{ home_location }}/{{ code_dest }}/"
+    - name: Install scrapper dependencies
+      command:
+        cmd: python3 setup.py install
+        chdir: "{{ home_location }}/{{ code_dest }}/"
+    - name: Test scrapper working
+      command:
+        cmd: pytest
+        chdir: "{{ home_location }}/{{ code_dest }}"
+      environment:
+        PYTHONPATH: "{{ ansible_env.PATH }}:{{ home_location }}/{{ code_dest }}/"
+      become: yes
+      become_user: ubuntu
