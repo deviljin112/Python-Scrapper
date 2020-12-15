@@ -1,49 +1,29 @@
-# IT Jobs Watch Data
+# Python Scrapper
 
-## Introduction
+The aim of this project is to create an automated deployment system for the [Python Scrapper](task.md) using AWS with Ansible and Jenkins.
 
-The aim of this project is to create a simple service that can scrape useful data from ITJobswatch.
+## Pre-requisites
 
-## Current Scope
+- Python 3.x
+- Terminal (Linux preferred although will work on Windows)
+- [Python Virtual Environment](https://docs.python.org/3/library/venv.html) (highly recommended)
 
-At present the app is set up to be cloned and used to simply scrape the below services:
+## Building the project
 
-1. Home page top 30 job/roles / skills which can be found
+To test that the app works locally we need to firstly open our terminal (with our virtual environment activated) and navigate to where we have our Python_Scrapper cloned. Next we need to add this folder to PYTHONPATH so that we can run our tests locally without any PATH issues, to do that simply run `export PYTHONPATH="$PWD/"` (Linux only, for Windows see [here](https://www.freecodecamp.org/news/how-to-edit-pythonpath-on-windows-eafd19840d44/)). After we have added our PYTHONPATH, we need to build and install the requirements and dependencies. To do that firstly run `python setup.py build` followed by `python setup.py install`, this will build and install the project and you will notice new folders being created. After we have successfully installed all the dependencies, we can run `python main.py` to use our program, or if we want to test that all the functionality is running correctly we can use `pytest tests/` which will give us the results.
 
-The aim will be to expand this to further services such as:
+## TLDR
 
-* Regular polling of pages and writing to a database for longer terms stats
-* Bespoke calls for specific job role data
+- Open terminal with venv activated
+- `cd Python_Scrapper`
+- `export PYTHONPATH="$PWD/"`
+- `python setup.py build`
+- `python setup.py install`
 
-And much more.
+To use:
 
-## Pre-Requisites
+- `python main.py`
 
-* Pycharm IDE
-* Python 3.x + installed
+To test:
 
-### Installing packages
-
-The necessary packages needed to run this program should automatically be picked up by pycharm. You may find a a few pop ups within the IDE that state there are dependencies missing, if you simply install these through the IDE you should be set up correctly.
-
-### Running tests
-
-To test whether the program will work from your machine:
-
-* Ensure the `config.ini` file has the test environment set to `live`
-* Click the `Terminal` icon which can be found on the menu in the bottom left of Pycharm.
-* Ensure you're in the root path of the project and type `python -m pytest tests/`
-
-This should execute the tests if any fail you may have issues with this program.
-
-### Running and using the program
-
-To use the program simply right click on the `main.py` file and then click `Run 'main'`. This will run the command line user interface.
-
-Follow the instructions to download via the various options given.
-
-## Next steps
-
-* Adding a job details search option (essentially be able to search for a specific role and return the details in a CSV)
-* create a connected database for full deployment
-* Build a scheduler as part of a full deployment to poll and add to the database
+- `pytest tests/`
