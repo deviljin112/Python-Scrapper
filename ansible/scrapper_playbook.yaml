@@ -26,6 +26,14 @@
           - python3
           - python3-pip
         state: present
+    - name: Installing scrapper requirements
+      command:
+        cmd: python3 -m pip install -r requirements.txt
+        chdir: "{{ home_location }}/{{ code_dest }}/"
+    - name: Installing pluggy dependency
+      command:
+        cmd: python3 -m pip install pluggy
+        chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Building scrapper dependencies
       command:
         cmd: python3 setup.py build
