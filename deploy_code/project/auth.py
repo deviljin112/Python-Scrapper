@@ -44,7 +44,7 @@ def register():
             return redirect(url_for("auth.login"))
 
     elif request.method == "GET":
-        return render_template("register.html", page_name="Registration")
+        return render_template("register.html")
 
 
 @auth.route("/login/", methods=["GET", "POST"])
@@ -68,7 +68,7 @@ def login():
             return redirect(url_for("main.panel"))
 
     elif request.method == "GET":
-        return render_template("login.html", page_name="Login Page")
+        return render_template("login.html")
 
 
 @auth.route("/logout/")

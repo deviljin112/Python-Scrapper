@@ -58,5 +58,5 @@ def about():
 @login_required
 def panel():
     return render_template(
-        "panel.html", page_name="Administrator Panel", name=current_user.username
+        "panel.html", page_name="User Panel", name=current_user.username
     )

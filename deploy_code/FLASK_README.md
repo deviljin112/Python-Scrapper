@@ -1,12 +1,12 @@
 # Flask Deployment
 
-This is the flask deployment version of the Python Scrapper
+This is the flask deployment version of the [Python Scrapper](README.md).
 
 ## Pre-requisites
 
-This Flask Project was deployed on Ubuntu 20, for Windows please alternate your commands accordingly
+This Flask Project was deployed on Ubuntu 20, for Windows please alternate your commands accordingly.
 
-- Python 3.8.x
+- Python 3.x
 - Working Terminal
 - [Python Virtual Environment](https://docs.python.org/3/library/venv.html)
 - Flask
@@ -21,7 +21,11 @@ Similarly to building the original project, the `requirements.txt` have been adj
 
 After installing all the packages, we need to ensure we set the `FLASK_APP` variable to `project` as an environment variable. To do that we simply run `export FLASK_APP=project`. After setting our environment, all we need to do is run `flask run` and open our browser. Once our browser is open navigate to http://127.0.0.1:5000 and that is everything.
 
+![homepage](img/home_page.png)
+
 ## TLDR
+
+Automated shell file available [HERE](/ansible/dev_env.sh).
 
 - Open terminal
 - Install SQLite3
@@ -38,3 +42,14 @@ After installing all the packages, we need to ensure we set the `FLASK_APP` vari
 - `flask run`
 - Open browser
 - Navigate to http://127.0.0.1:5000
+
+## Features
+
+- One click app trigger
+- Clearly formatted table results
+- Login and Registration System
+- Light weight Database with SQLite3
+- SHA256 password encryption
+- User Panel (WIP)
+- Easily Deployed
+- Easily modifiable with templates
