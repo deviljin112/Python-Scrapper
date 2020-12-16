@@ -86,11 +86,26 @@
         PYTHONPATH: "{{ ansible_env.PATH }}:{{ home_location }}/{{ code_dest }}/"
       become: yes
       become_user: ubuntu
-    - name: Running Flask Application
+    - name: Ensuring nodejs is installed
+      apt:
+        name:
+          - nodejs
+          - npm
+        state: present
+    - name: Ensuring PM2 is installed
+      npm:
+        name: pm2
+        global: yes
+    - name: Stopping FlaskApp if started
+      shell: "pm2 delete FlaskApp"
+      ignore_errors: yes
+      become: true
+      become_user: ubuntu
+    - name: Starting Flask Application
       shell:
-        cmd: "nohup flask run > flask_app.log 2>&1 &"
+        cmd: "pm2 start 'flask run' --name FlaskApp --interpreter=python3"
         chdir: "{{ home_location }}/{{ code_dest }}"
+      become: true
+      become_user: ubuntu
       environment:
         FLASK_APP: project
-      become: yes
-      become_user: ubuntu
