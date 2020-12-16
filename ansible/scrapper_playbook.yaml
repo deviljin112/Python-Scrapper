@@ -92,3 +92,5 @@
         chdir: "{{ home_location }}/{{ code_dest }}"
       environment:
         FLASK_APP: project
+      become: yes
+      become_user: ubuntu
