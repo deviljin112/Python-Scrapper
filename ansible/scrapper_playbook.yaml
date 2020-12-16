@@ -88,7 +88,7 @@
       become_user: ubuntu
     - name: Running Flask Application
       command:
-        cmd: flask run
+        cmd: nohup flask run > flask_app.log 2>&1 &
         chdir: "{{ home_location }}/{{ code_dest }}"
       environment:
         FLASK_APP: project
