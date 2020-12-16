@@ -40,8 +40,8 @@ class CmdUserInterface:
 
     def manage_get_ITJW_top_30_menu(self):
         print("Please select from the below menu options\n")
-        print("1. Print top 30 to downloads folder with default name (No Headers)")
-        print("2. Print top 30 to downloads folder with default name (with Headers)")
+        print("1. Save top 30 to csv folder with default name (No Headers)")
+        print("2. Save top 30 to csv folder with default name (with Headers)")
         print("3. Return to Main Menu")
         print("or type exit to quit program\n")
         print("Please select option:\n")
@@ -58,16 +58,15 @@ class CmdUserInterface:
                 ).get_top_30_table_elements_into_array()
             )
             print("Please check your 'csv' folder")
-            self.manage_get_ITJW_top_30_menu()
         elif int(option_selected) == 2:
             top_30 = ItJobsWatchHomePageTop30(itjobswatch_home_page_url())
             Top30CSVGenerator().generate_top_30_csv(
                 top_30.get_top_30_table_elements_into_array(),
-                os.path.expanduser(f'{os.path.abspath(os.getcwd())}/csv/'),
+                os.path.expanduser(f"{os.path.abspath(os.getcwd())}/csv/"),
                 "ItJobsWatchTop30.csv",
                 top_30.get_table_headers_array(),
             )
-            self.manage_get_ITJW_top_30_menu()
+            print("Please check your 'csv' folder")
         elif int(option_selected) == 3:
             self.menu_control()
         else:
