@@ -90,5 +90,5 @@
       command:
         cmd: flask run
         chdir: "{{ home_location }}/{{ code_dest }}"
-        environment:
-          FLASK_APP: project
+      environment:
+        FLASK_APP: project
