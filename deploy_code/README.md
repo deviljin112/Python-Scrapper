@@ -1,11 +1,13 @@
 # Python Scrapper
 
+For Flask Deployment See [THIS FILE](FLASK_README.md)!
+</br>
 The aim of this project is to create an automated deployment system for the [Python Scrapper](task.md) using AWS with Ansible and Jenkins.
 
 ## Pre-requisites
 
 - Python 3.x
-- Terminal (Linux preferred although will work on Windows)
+- Working Terminal (Linux preferred although will work on Windows)
 - [Python Virtual Environment](https://docs.python.org/3/library/venv.html) (highly recommended)
 
 ## Building the project
