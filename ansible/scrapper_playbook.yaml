@@ -111,9 +111,10 @@
       command:
         cmd: "{{ item }}"
       with_items:
-        - sudo supervisorctl reread
-        - sudo supervisorctl update
-        - sudo supervisorctl avail
-        - sudo supervisorctl restart FlaskApp
+        - supervisorctl reread
+        - supervisorctl update
+        - supervisorctl avail
+        - supervisorctl restart FlaskApp
+      become: true
       environment:
         FLASK_APP: project
