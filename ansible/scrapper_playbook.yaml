@@ -69,16 +69,16 @@
           - python3-pip
         state: present
     - name: Installing scrapper requirements
-      pip3:
-        requirements: requirements.txt
+      command:
+        cmd: python3 -m pip install -r requirements.txt
         chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Building Dependancy Wheel
       command:
         cmd: python3 setup.py bdist_wheel
         chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Installing Wheel Dependencies
-      pip3:
-        name: itjobswatch_data-0.1-py3-none-any.whl
+      command:
+        cmd: python3 -m pip install itjobswatch_data-0.1-py3-none-any.whl
         chdir: "{{ home_location }}/{{ code_dest }}/dist"
     - name: Building scrapper dependencies
       command:
@@ -115,3 +115,5 @@
         - sudo supervisorctl update
         - sudo supervisorctl avail
         - sudo supervisorctl restart FlaskApp
+      environment:
+        FLASK_APP: project
