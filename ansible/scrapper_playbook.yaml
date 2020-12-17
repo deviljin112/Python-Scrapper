@@ -88,12 +88,6 @@
       command:
         cmd: python3 setup.py install
         chdir: "{{ home_location }}/{{ code_dest }}/"
-    - name: Testing scrapper working
-      command:
-        cmd: python3 -m pytest
-        chdir: "{{ home_location }}/{{ code_dest }}"
-      environment:
-        PYTHONPATH: "{{ ansible_env.PATH }}:{{ home_location }}/{{ code_dest }}/"
     - name: Installing Supervisor
       apt:
         name: supervisor
