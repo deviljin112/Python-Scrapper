@@ -62,14 +62,14 @@
       apt:
         name: sqlite3
         state: present
-    - name: Installing python3, pip3 and venv
+    - name: Installing python3 and pip
       apt:
         name:
           - python3
           - python3-pip
         state: present
     - name: Installing scrapper requirements
-      pip:
+      pip3:
         requirements: requirements.txt
         chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Building Dependancy Wheel
@@ -77,7 +77,7 @@
         cmd: python3 setup.py bdist_wheel
         chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Installing Wheel Dependencies
-      pip:
+      pip3:
         name: itjobswatch_data-0.1-py3-none-any.whl
         chdir: "{{ home_location }}/{{ code_dest }}/dist"
     - name: Building scrapper dependencies
