@@ -2,8 +2,8 @@
 - name: Running the Python Scrapper
   hosts: scrapper
   gather_facts: yes
+  remote_user: ubuntu
   become: true
-  become_user: ubuntu
 
   vars:
     code_local: "deploy_code"
@@ -27,6 +27,7 @@
         update_cache: yes
         force_apt_get: yes
         cache_valid_time: 3600
+      become: true
     - name: Getting Public IP
       command: "curl ifconfig.me"
       register: host_ip
