@@ -74,8 +74,8 @@
         cmd: python3 -m venv venv
         chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Activatating Virtual Environment
-      command:
-        cmd: source venv/bin/activate
+      shell:
+        cmd: "source venv/bin/activate"
         chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Installing scrapper requirements
       pip:
