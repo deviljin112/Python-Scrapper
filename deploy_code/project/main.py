@@ -18,7 +18,6 @@ path_to_app = os.path.abspath(os.getcwd())
 def home():
     if request.method == "POST":
         if "pull" in request.form:
-            print("pull request")
 
             top_30 = ItJobsWatchHomePageTop30(itjobswatch_home_page_url())
             Top30CSVGenerator().generate_top_30_csv(

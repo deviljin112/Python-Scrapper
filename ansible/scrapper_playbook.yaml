@@ -3,6 +3,7 @@
   hosts: scrapper
   gather_facts: yes
   become: true
+  become_user: ubuntu
 
   vars:
     code_local: "deploy_code"
@@ -60,20 +61,33 @@
       apt:
         name: sqlite3
         state: present
-    - name: Installing python3 and pip3
+    - name: Installing python3, pip3 and venv
       apt:
         name:
           - python3
           - python3-pip
+          - python3-venv
         state: present
+    - name: Creating Python3 Virtual Environment
+      command:
+        cmd: python3 -m venv venv
+        chdir: "{{ home_location }}/{{ code_dest }}/"
+    - name: Activatating Virtual Environment
+      command:
+        cmd: source venv/bin/activate
+        chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Installing scrapper requirements
-      command:
-        cmd: python3 -m pip install -r requirements.txt
+      pip:
+        requirements: requirements.txt
         chdir: "{{ home_location }}/{{ code_dest }}/"
-    - name: Installing pluggy dependency
+    - name: Building Dependancy Wheel
       command:
-        cmd: python3 -m pip install pluggy
+        cmd: python3 setup.py bdist_wheel
         chdir: "{{ home_location }}/{{ code_dest }}/"
+    - name: Installing Wheel Dependencies
+      pip:
+        name: itjobswatch_data-0.1-py3-none-any.whl
+        chdir: "{{ home_location }}/{{ code_dest }}/dist"
     - name: Building scrapper dependencies
       command:
         cmd: python3 setup.py build
@@ -84,20 +98,28 @@
         chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Testing scrapper working
       command:
-        cmd: pytest
+        cmd: python3 -m pytest
         chdir: "{{ home_location }}/{{ code_dest }}"
       environment:
         PYTHONPATH: "{{ ansible_env.PATH }}:{{ home_location }}/{{ code_dest }}/"
-      become: yes
-      become_user: ubuntu
-
-
-    # NOT YET IMPLEMENTED
-    # - name: Starting Flask Application
-    #   shell:
-    #     cmd: "nohup flask run > flask_app.log 2>&1 &"
-    #     chdir: "{{ home_location }}/{{ code_dest }}"
-    #   become: true
-    #   become_user: ubuntu
-    #   environment:
-    #     FLASK_APP: project
+    - name: Installing Supervisor
+      apt:
+        name: supervisor
+        state: present
+    - name: Ensuring Supervisor is started
+      service:
+        name: supervisor
+        state: started
+    - name: Copying config file for supervisor
+      copy:
+        src: "/home/ubuntu/{{ config_dest }}/flask_app.conf"
+        dest: /etc/supervisor/conf.d/
+        remote_src: yes
+    - name: Running supervisor commands
+      command:
+        cmd: {{ item }}
+      with_items:
+        - sudo supervisorctl reread
+        - sudo supervisorctl update
+        - sudo supervisorctl avail
+        - sudo supervisorctl restart FlaskApp
