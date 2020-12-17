@@ -67,16 +67,7 @@
         name:
           - python3
           - python3-pip
-          - python3-venv
         state: present
-    - name: Creating Python3 Virtual Environment
-      command:
-        cmd: python3 -m venv venv
-        chdir: "{{ home_location }}/{{ code_dest }}/"
-    - name: Activatating Virtual Environment
-      shell:
-        cmd: "source venv/bin/activate"
-        chdir: "{{ home_location }}/{{ code_dest }}/"
     - name: Installing scrapper requirements
       pip:
         requirements: requirements.txt
