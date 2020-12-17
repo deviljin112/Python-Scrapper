@@ -117,7 +117,7 @@
         remote_src: yes
     - name: Running supervisor commands
       command:
-        cmd: {{ item }}
+        cmd: "{{ item }}"
       with_items:
         - sudo supervisorctl reread
         - sudo supervisorctl update
