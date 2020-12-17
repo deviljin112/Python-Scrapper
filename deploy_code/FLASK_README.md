@@ -12,6 +12,8 @@ This Flask Project was deployed on Ubuntu 20, for Windows please alternate your 
 - Flask
 - SQLite3
 - Pandas
+- Gunicorn
+- Supervisor
 
 ## Building the project
 

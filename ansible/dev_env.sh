@@ -24,9 +24,16 @@ source venv/bin/activate
 
 ## Installs all dependencies for Flask and App to run
 python3 -m pip install -r requirements.txt
-python3 -m pip install pluggy flask flask-login flask-sqlalchemy pandas
+python3 -m pip install pluggy flask flask-login flask-sqlalchemy pandas wheel gunicorn
+python3 setup.py bdist_wheel
+python3 -m pip install dist/itjobswatch_data-0.1-py3-none-any.whl
 python3 setup.py build
 python3 setup.py install
+
+# Exports the current path to Python to run tests on
+export PYTHONPATH=$PWD/
+
+# Tests that the application works
 python3 -m pytest
 
 ## Exports the correct Flask Environment
